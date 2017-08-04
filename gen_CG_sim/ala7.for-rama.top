@@ -1,0 +1,35 @@
+; Hybrid Amber99sb-ildn + Structure-based topology          
+; Here are the AMBER defaults
+;[ defaults ]
+; nbfunc        comb-rule       gen-pairs       fudgeLJ fudgeQQ
+;1               2               yes             0.5     0.8333
+; JFR - we have listed out the pair interactions explicitly, so we can use C6/C12 values
+[ defaults ]
+;nbfunc        comb-rule       gen-pairs       fudgeLJ   fudgeQQ
+ 1             1               no              0.0       0.0
+
+[ atomtypes ]
+;name  mass     charge   ptype    c6      c12
+; backbone + C-beta ALA
+  N3   14.01    0.0000       A     0.0     1.00    ; the non-native contacts have their own individual tables with WCA potentials
+   N   14.01    0.0000       A     0.0     1.00   
+  CT   12.01    0.0000       A     0.0     1.00   
+  CA   12.01    0.0000       A     0.0     1.00   
+   C   12.01    0.0000       A     0.0     1.00   
+   O   16.00    0.0000       A     0.0     1.00   
+  O2   16.00    0.0000       A     0.0     1.00   
+   H    1.008   0.0000       A     0.0     0.00
+  HP    1.008   0.0000       A     0.0     0.00
+  HC    1.008   0.0000       A     0.0     0.00
+  H1    1.008   0.0000       A     0.0     0.00
+
+; Here is the system-specific .itp
+#include "ala7.for-rama.itp"
+
+ [ system ]
+ ;name
+ ALA7
+
+ [ molecules ]
+ ;name   #molec
+ ALA7      1

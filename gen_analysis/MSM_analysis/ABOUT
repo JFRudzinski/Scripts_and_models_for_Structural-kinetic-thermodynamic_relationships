@@ -1,0 +1,30 @@
+WORKFLOW: *In addition to the software mentioned below, many of the calculations also utilize the pyEmma package (http://www.emma-project.org/latest/).
+
+Once the simulation trajectory is generated:
+
+1. BMSM - For processing simulation data.
+(i) MSM_from_Qhel_via_rama_CG_getdtraj.py - get simple 2-state discretized trajectory     
+(ii) Get_raw_rama_traj.py - save the raw data to .npy file
+
+2. DPCA - Density clustering of simulation trajectory. This requires the "Clustering" program from Stock and coworkers (http://lettis.github.io/Clustering/).
+(i) MSM_from_rama_CG_DPCA.py - converts raw simulation data (as calculated in the previous step) to format for dihedral PCA and then performs the PCA and saves the 5 most significant dimensions for the Clustering analysis.
+(ii) commands.sh - for running the Clustering program, largely following the program tutorial.
+
+3. LR - For determining the Lifson-Roig parameters from the simulation data. This requires an inhouse code available on github (https://github.com/JFRudzinski/biased-MSM-2)
+(i) Get_LR_const_params.py - Calculates the input values from the raw simulation data.
+(ii) no-cap/ - without end effects, as presented in the paper.
+(a) DCA_zip/ - for calculating the kIsing model.
+(b) Get_LR_sampled_params_nocap.py - for getting the optimized LR parameters from the data.
+(c) Get_LR_sampled_params_nocap_wkinzip.py - for getting the optimized LR parameters from the data and also constructing a kinzip model.
+(d) qsub.sh - for running the inhouse biased-MSM-2 code.
+(iii) cap/ - with end effects.
+
+4. DCA - for performing dyanmic coupling analysis
+
+5. MLE_unsampled-states/ - For generating the Markov state model from the discretized trajectory output from the density clustering.
+(i) Convert_DPCA_dtraj.ipynb - converts discretized trajectory from clustering into proper format.
+(ii) Get_MLE.ipynb - calcuates the MSM.
+(iii) Map_TN_to_TQhel.ipynb - maps the full MSM to the reduced, Qh MSM.
+
+6. TPT_helix-to-coil - Performs the conditional path entropy calculations.
+

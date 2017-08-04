@@ -1,0 +1,8 @@
+**In this file distribution, you will find scripts and data files used in "Structure-kinetic-thermodynamic relationships for peptide secondary structure formation identified from transition network properties" by Joseph F. Rudzinski and Tristan Bereau. 
+
+
+gen_analysis - skeleton files for the analysis of each simulation trajectory
+ 
+gen_CG_sim - skeleton files for running simulations of the HyGo models
+
+HyGo_tables - various Gromacs table files for the Go-type interactions of the HyGo model.

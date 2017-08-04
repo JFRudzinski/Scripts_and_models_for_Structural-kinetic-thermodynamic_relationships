@@ -1,0 +1,59 @@
+; Run Control
+integrator          =  sd	; Run control: Use Langevin dynamics.
+tinit               =  0.0
+dt                  =  0.002	; we are now using an AA ff, so we can use normal time steps, without H's 0.002 fs
+nsteps              =  50000000	; number of integration steps
+nstcomm             =  1         ; no. steps between removing com motion
+comm-mode           =  angular    ; remove com translation
+
+; Output Control
+nstxout             =  100000   ; no. steps between printing coords to trr file 
+nstvout             =  100000   ; no. steps between printing veloc  to trr file 
+nstfout             =  0        ; no. steps between printing forces to trr file 
+nstlog              =  1000     ; no. steps between printing energy to log file 
+nstenergy           =  1000     ; no. steps between printing energy to edr file 
+nstxtcout           =  1000     ; no. stpes between printing coords to xtc file
+
+; Groups
+xtc_grps = system 
+energygrps                = system
+;energygrps               = N C O
+;energygrp_table          = N N  N C  N O  C C  C O
+
+; Neighbor searching
+nstlist             =  0         ; for no cut-offs, pbc=no, update neighbor list every step
+ns_type             =  simple      ; check neighbor list using grid
+rlist               =  0       ; cutoff distance (nm) for short-range neighbor list
+
+; Electrostatics and VdW
+coulombtype         =  User   ; electrostatics
+rcoulomb            =  0      ; distance for the Coulomb cut-off
+vdwtype             =  User   ; truncated LJ interactions
+rvdw                =  0      ; distance for LJ cut-off
+;DispCorr            =  EnerPres ; apply long range disp. correct. for Energy/Pres
+;fourierspacing      =  0.08     ; max grid spacing fr FFT grid in PME
+;pme_order           =  6        ; interpolation order for PME
+;ewald_rtol          =  1e-05    ; relative strength of direct potential at cutoff
+;optimize_fft        =  yes      ; optimize fft_grids
+
+
+; PBC
+pbc = no
+table-extension = 20 ; (nm) !IMPORTANT! Set this so that rvdw + table-extension equals half of the box's longest diagonal. 
+
+;Temperature coupling 
+tc-grps = system 
+tau_t 	= 1.0 ; Temperature coupling time constant. Smaller values = stronger coupling. 
+ref_t 	= 200.0 ; In reduced units (see Gromacs Manual for explanation. We find many proteins fold around T=100-120) a
+
+;Pressure coupling 
+Pcoupl = no 
+
+;Velocity generation 
+gen_vel  = yes 
+gen_temp = 200.0 
+gen_seed = 30 
+ld_seed  = 130 
+
+constraints         =   hbonds
+constraint_algorithm=   LINCS
